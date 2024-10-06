@@ -8,7 +8,9 @@
     "start": "start-server -s ./frontend/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "workspaces": ["frontend"],
+  "workspaces": [
+    "frontend"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Denisof/js-react-developer-project-12.git"
