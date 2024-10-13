@@ -1,29 +1,45 @@
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from "./Components/Home";
-import Login from "./Components/Login";
-import NotFound from "./Components/NotFound";
+import React, {useEffect, useState} from 'react';
+import { setToken } from './slices/jwt.js';
+import { login } from './slices/user.js';
+import Home from "./components/Home";
+import Login from "./components/Login";
+import NotFound from "./components/NotFound";
+import ProtectedRoutesProxy from "./components/ProtectedRoutesProxy";
+import { useDispatch } from 'react-redux';
+
 
 function App() {
-  return (
-    <div className="App">
-        <header className="App-header">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" >
-                        <Route index element={<Home />} />
-                        <Route path="login" element={<Login />} />
-                    </Route>
-
-                    <Route path={"*"}
-                        element={<NotFound />}
-                    />
-                </Routes>
-            </BrowserRouter>
-        </header>
-    </div>
-  );
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            dispatch(setToken(token));
+            dispatch(login());
+        }
+        setIsLoading(false);
+    }, []);
+      return !isLoading && (
+        <div className="App">
+            <header className="App-header">
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<ProtectedRoutesProxy />}>
+                            <Route index element={<Home />} />
+                        </Route>
+                        <Route path="/login" element={<Login />} />
+                        <Route path={"*"}
+                            element={<NotFound />}
+                        />
+                    </Routes>
+                </BrowserRouter>
+            </header>
+        </div>
+      );
 }
 
 export default App;
