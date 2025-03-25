@@ -55,7 +55,7 @@ export default {
         buttons: {
           logout: "Выйти",
         },
-        title: "Чат",
+        title: "Hexlet Chat",
         channels: {
           channels: "Каналы",
           action_rename: "Переименовать",
