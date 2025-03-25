@@ -47,7 +47,7 @@ export default {
         login: "Войти",
         login_error: "Неверные имя пользователя или пароль",
         fields: {
-          username: "Ваш ник",
+          username: "Имя пользователя",
           password: "Пароль",
         }
       },
