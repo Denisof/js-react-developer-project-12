@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setToken } from './slices/jwt.js';
+import { login } from './slices/user.js';
+import Home from './components/Home';
+import LoginPage from './components/LoginPage.jsx';
+import NotFound from './components/NotFound';
+import NavBar from './components/NavBar.jsx';
+import {AuthProvider} from "./components/AuthContext.jsx";
+import SignupPage from './components/SignupPage.jsx';
+import { ToastContainer } from 'react-toastify';
 
-function App() {
-  const [count, setCount] = useState(0)
-  const viteLogo = "https://vitejs.dev/logo.svg"
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR1
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+import ProtectedRoutesProxy from './components/ProtectedRoutesProxy';
+
+const App = () => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const userData = localStorage.getItem('userData');
+
+    if (userData !== null && userData !== undefined && userData !== "") {
+      const { token, username } = JSON.parse(userData);
+      dispatch(setToken(token));
+      dispatch(login(username));
+    }
+    setIsLoading(false);
+  }, [dispatch]);
+  return !isLoading && (
+    <div className="h-100">
+        <BrowserRouter>
+          <AuthProvider>
+            <NavBar />
+            <Container fluid="lg" id="main-content" className={'h-100'}>
+              <Routes>
+                <Route path="/" element={<ProtectedRoutesProxy />}>
+                  <Route index element={<Home />} />
+                </Route>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Container>
+            <ToastContainer />
+          </AuthProvider>
+        </BrowserRouter>
+    </div>
+  );
+};
+
+export default App;
