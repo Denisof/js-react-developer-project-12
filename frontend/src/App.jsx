@@ -11,10 +11,8 @@ import LoginPage from './components/LoginPage.jsx';
 import NotFound from './components/NotFound';
 import NavBar from './components/NavBar.jsx';
 import {AuthProvider} from "./components/AuthContext.jsx";
-import SignupPage from './components/SignupPage.jsx';
+import SignupPage from './components/SignUpPage.jsx';
 import { ToastContainer } from 'react-toastify';
-
-
 import ProtectedRoutesProxy from './components/ProtectedRoutesProxy';
 
 const App = () => {

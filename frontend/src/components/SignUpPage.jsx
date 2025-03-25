@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import SignUpForm from './login/SignUpForm.jsx';
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <Row className="d-flex align-items-center justify-content-center h-100">
       <Col col={12} xs={12} md={6} >
