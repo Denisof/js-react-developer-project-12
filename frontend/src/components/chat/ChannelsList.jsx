@@ -20,9 +20,6 @@ import { _ } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {selectChannels} from "../../selectors/channels.js";
 
-const getChannelTitle = (channel) => {
-  return "# " + channel.name.substring(0, 12) + (channel.name.length > 12 ? "..." : "");
-}
 
 export default function ChannelsList() {
   const dispatch = useDispatch();
@@ -100,16 +97,23 @@ export default function ChannelsList() {
             if (!removable) {
               return (
                 <Nav.Item key={channel.id} className="d-flex justify-content-between">
-                  <Button  as={ButtonGroup} className="w-100"size="sm" variant={variant} title={getChannelTitle(channel)} onClick={() => dispatch(setOpenChannel(channel))}>
-                    {getChannelTitle(channel)}
+                  <Button
+                    as={ButtonGroup}
+                    size="sm"
+                    className="w-100 text-truncate text-start"
+                    variant={variant}
+                    title={`# ${channel.name}`}
+                    onClick={() => dispatch(setOpenChannel(channel))}
+                  >
+                    <span className="me-1">#</span>{channel.name}
                   </Button>
                 </Nav.Item>
               );
             } else {
               return (
                 <Nav.Item key={channel.id} className="d-flex justify-content-between">
-                  <Button  as={ButtonGroup} size="sm" className="w-100" variant={variant} title={getChannelTitle(channel)} onClick={() => dispatch(setOpenChannel(channel))}>
-                    {getChannelTitle(channel)}
+                  <Button  as={ButtonGroup} size="sm" className="w-100 text-truncate" variant={variant} title={channel.name} onClick={() => dispatch(setOpenChannel(channel))}>
+                    <span className="me-1">#</span>{channel.name}
                   </Button>
                   <DropdownButton
                     as={ButtonGroup}
