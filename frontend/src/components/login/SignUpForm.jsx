@@ -76,6 +76,7 @@ export default function LoginForm() {
   return (
     <Form noValidate onSubmit={loginFormik.handleSubmit}>
       <Form.Group>
+        <Form.Label htmlFor="username" visuallyHidden=true>{t('registration.form.fields.username')}</Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.username && !!loginFormik.errors.username}
@@ -94,6 +95,7 @@ export default function LoginForm() {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group>
+        <Form.Label htmlFor="password" visuallyHidden=true>{t('registration.form.fields.password')}</Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.password && !!loginFormik.errors.password}
@@ -111,6 +113,7 @@ export default function LoginForm() {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group>
+        <Form.Label htmlFor="confirm-password" visuallyHidden=true>{t('registration.form.fields.passwordConfirmation')}</Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.confirmPassword && !!loginFormik.errors.confirmPassword}
