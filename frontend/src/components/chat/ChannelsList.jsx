@@ -18,7 +18,7 @@ import {setCreatingChannel} from "../../slices/creatingChannel.js";
 import { io } from "socket.io-client";
 import { _ } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import {selectChannels} from "../../selectors/channels.js";
+import selectChannels from "../../selectors/channels.js";
 
 
 export default function ChannelsList() {

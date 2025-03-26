@@ -1,7 +1,7 @@
 export default {
-  'ru' : {
-    'translation': {
-      'Sign Up': 'Sign Up',
-    }
-  }
-}
+  ru: {
+    translation: {
+      SignUp: 'Sign Up',
+    },
+  },
+};

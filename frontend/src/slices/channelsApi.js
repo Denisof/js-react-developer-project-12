@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { toast } from 'react-toastify';
 import baseQueryWithErrorHandling from '../api/baseQuery.js';
-import {toast} from "react-toastify";
 import i18n from '../i18n/i18next.js';
 
 export const channelsApi = createApi({
@@ -17,8 +17,8 @@ export const channelsApi = createApi({
         try {
           const { data } = await queryFulfilled;
           toast.success(i18n.t('chat.channels.form.success.channelAdded', { name: data.name }));
+          // eslint-disable-next-line no-unused-vars, no-empty
         } catch (_) {
-          // Ошибка уже будет обработана глобально
         }
       },
     }),
@@ -31,7 +31,9 @@ export const channelsApi = createApi({
         try {
           await queryFulfilled;
           toast.success(i18n.t('chat.channels.form.success.channelRemoved'));
-        } catch (_) {}
+          // eslint-disable-next-line no-unused-vars, no-empty, no-shadow
+        } catch (_) {
+        }
       },
     }),
     updateChannel: builder.mutation({
@@ -44,7 +46,9 @@ export const channelsApi = createApi({
         try {
           await queryFulfilled;
           toast.success(i18n.t('chat.channels.form.success.channelRenamed'));
-        } catch (_) {}
+          // eslint-disable-next-line no-unused-vars, no-empty, no-shadow
+        } catch (_) {
+        }
       },
     }),
     getChannels: builder.query({

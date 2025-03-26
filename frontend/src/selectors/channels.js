@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { channelsApi } from '../slices/channelsApi.js';
 import filterText from '../utils/filter.js';
+import { channelsApi } from '../slices/channelsApi.js';
 
-export const selectChannels = createSelector(
+const selectChannels = createSelector(
   channelsApi.endpoints.getChannels.select(),
   (result) => {
     if (!result?.data) return [];
@@ -11,5 +11,6 @@ export const selectChannels = createSelector(
       ...channel,
       name: filterText(channel.name),
     }));
-  }
+  },
 );
+export default selectChannels;

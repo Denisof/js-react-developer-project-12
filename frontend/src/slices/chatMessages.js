@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: []
+  value: [],
 };
 
 const chatMessagesSlice = createSlice({
@@ -9,11 +9,12 @@ const chatMessagesSlice = createSlice({
   initialState,
   reducers: {
     setChatMessages: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.value = action.payload;
-    }
+    },
   },
 });
 
-export const {setChatMessages} = chatMessagesSlice.actions;
+export const { setChatMessages } = chatMessagesSlice.actions;
 
 export default chatMessagesSlice.reducer;

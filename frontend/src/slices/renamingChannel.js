@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: null
+  value: null,
 };
 
 const renamingChannelSlice = createSlice({
@@ -9,11 +9,12 @@ const renamingChannelSlice = createSlice({
   initialState,
   reducers: {
     setRenamingChannel: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.value = action.payload;
-    }
+    },
   },
 });
 
-export const {setRenamingChannel} = renamingChannelSlice.actions;
+export const { setRenamingChannel } = renamingChannelSlice.actions;
 
 export default renamingChannelSlice.reducer;
