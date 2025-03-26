@@ -34,10 +34,10 @@ export default function RemoveChannel() {
         <Modal.Title>{t('chat.channels.form.title_remove')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Button type="button" className={"me-2 btn btn-secondary"} onClick={handleClose} disabled={isRemovingChannel}>
+        <Button type="button" variant="secondary" className={"me-2 btn btn-secondary"} onClick={handleClose} disabled={isRemovingChannel}>
           {t('form.fields.cancel')}
         </Button>
-        <Button type="submit" onClick={handleSubmit} disabled={isRemovingChannel}>{t('form.fields.submit')}</Button>
+        <Button type="submit" variant="danger" onClick={handleSubmit} disabled={isRemovingChannel}>{t('form.fields.submit')}</Button>
       </Modal.Body>
     </Modal>
   );
