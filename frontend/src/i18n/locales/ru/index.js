@@ -34,7 +34,7 @@ export default {
               passwordRequired: "Пароль обязателен",
               passwordConfirmationRequired: "Подтверждение пароля обязательно",
               passwordsMustMatch: "Пароли должны совпадать",
-              usernameAlreadyExists: "Пользователь с таким именем уже существует",
+              usernameAlreadyExists: "Такой пользователь уже существует",
             }
           },
           buttons: {
