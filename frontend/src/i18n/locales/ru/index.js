@@ -87,6 +87,7 @@ export default {
           form: {
             fields: {
               message: "Введите сообщение...",
+              message_label: "Новое сообщение",
             }
           }
         }

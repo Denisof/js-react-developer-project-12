@@ -68,7 +68,7 @@ export default function ChannelChat() {
       <Row className="d-flex align-items-center justify-content-center h-100">
         <Form noValidate onSubmit={submitMessageFormik.handleSubmit}>
           <Form.Group>
-            <Form.Control required isInvalid={!!submitMessageFormik.errors.body} type="text" id="body"
+            <Form.Control aria-label={t('chat.active_chat.form.fields.message_label')} required isInvalid={!!submitMessageFormik.errors.body} type="text" id="body"
                           autoComplete="body" name="body" onChange={submitMessageFormik.handleChange}
                           value={submitMessageFormik.values.body} placeholder={t('chat.active_chat.form.fields.message')}/>
             <Form.Control.Feedback type="invalid" tooltip isInvalid={submitMessageFormik.errors.body !== null}>
