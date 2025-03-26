@@ -20,7 +20,7 @@ const SignUpForm = () => {
       .min(3, t('form.errors.validation.between_length', { min: 3, max: 20 }))
       .max(20, t('form.errors.validation.between_length', { min: 3, max: 20 })),
     password: yup.string().required(t('registration.form.errors.validation.passwordRequired'))
-      .min(6, t('form.errors.validation.min_length"', { count: 6 })),
+      .min(6, t('form.errors.validation.min_length', { count: 6 })),
     confirmPassword: yup
       .string()
       .required(t('registration.form.errors.validation.passwordConfirmationRequired'))
