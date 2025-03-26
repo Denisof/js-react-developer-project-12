@@ -62,7 +62,7 @@ export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
             <Form.Label visuallyHidden={true} htmlFor="channelName">{t('chat.channels.form.fields.name')}</Form.Label>
             <Form.Control ref={channelNameRef} required type="text"
                           id="channelName" isInvalid={error}
-                          maxLength={20} minLength={3} placeholder={t('chat.channels.form.fields.name')}
+                          placeholder={t('chat.channels.form.fields.name')}
                           autoComplete="channelName" name="channelName" onChange={channelFormik.handleChange}
                           value={channelFormik.values.channelName}/>
             <Form.Control.Feedback type="invalid" isInvalid={error}>
