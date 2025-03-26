@@ -1,12 +1,11 @@
-import {useAddChannelMutation, useGetChannelsQuery} from "../../slices/channelsApi.js";
-import {useState, useEffect, useRef} from 'react';
-import {useDispatch} from "react-redux";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-import {setCreatingChannel} from "../../slices/creatingChannel.js";
-import ChannelModal from "./channel/ChannelModal.jsx";
 import { useTranslation } from 'react-i18next';
+import ChannelModal from './channel/ChannelModal.jsx';
+import { setCreatingChannel } from '../../slices/creatingChannel.js';
 
-export default function AddChannel() {
+const AddChannel = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
@@ -15,10 +14,8 @@ export default function AddChannel() {
       dispatch(setCreatingChannel(channel.data.id));
     }
     setShow(false);
-  }
-  const handleClose = () => {
-    setShow(false);
-  }
+  };
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
     <>
@@ -27,4 +24,5 @@ export default function AddChannel() {
     </>
 
   );
-}
+};
+export default AddChannel;

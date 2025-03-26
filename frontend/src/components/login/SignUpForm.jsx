@@ -1,32 +1,26 @@
-import instance from '../../api/client.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import routes from '../../api/routes.js';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { useAuth } from '../AuthContext.jsx';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../AuthContext.jsx';
+import instance from '../../api/client.js';
+import routes from '../../api/routes.js';
 
-export default function LoginForm() {
-  const { login, isAuthenticated } = useAuth();
+const SignUpForm = () => {
+  const { login } = useAuth();
   const { t } = useTranslation();
-
-  let { state } = useLocation();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const redirectTo = state ? state.from.pathname : '/';
-
-  if (isAuthenticated) {
-    return <Navigate to={redirectTo} replace />;
-  }
-
   const schema = yup.object().shape({
     username: yup.string().required(t('registration.form.errors.validation.usernameRequired'))
-      .min(3, t('form.errors.validation.between_length', { min: 3, max: 20}))
-      .max(20, t('form.errors.validation.between_length', { min: 3, max: 20})),
+      .min(3, t('form.errors.validation.between_length', { min: 3, max: 20 }))
+      .max(20, t('form.errors.validation.between_length', { min: 3, max: 20 })),
     password: yup.string().required(t('registration.form.errors.validation.passwordRequired'))
-      .min(6, t("form.errors.validation.min_length", { count: 6 })),
+      .min(6, t('form.errors.validation.min_length"', { count: 6 })),
     confirmPassword: yup
       .string()
       .required(t('registration.form.errors.validation.passwordConfirmationRequired'))
@@ -76,7 +70,7 @@ export default function LoginForm() {
   return (
     <Form noValidate onSubmit={loginFormik.handleSubmit}>
       <Form.Group>
-        <Form.Label htmlFor="username" visuallyHidden={true}>{t('registration.form.fields.username')}</Form.Label>
+        <Form.Label htmlFor="username" visuallyHidden>{t('registration.form.fields.username')}</Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.username && !!loginFormik.errors.username}
@@ -95,7 +89,7 @@ export default function LoginForm() {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group>
-        <Form.Label htmlFor="password" visuallyHidden={true}>{t('registration.form.fields.password')}</Form.Label>
+        <Form.Label htmlFor="password" visuallyHidden>{t('registration.form.fields.password')}</Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.password && !!loginFormik.errors.password}
@@ -113,7 +107,12 @@ export default function LoginForm() {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group>
-        <Form.Label htmlFor="confirm-password" visuallyHidden={true}>{t('registration.form.fields.passwordConfirmation')}</Form.Label>
+        <Form.Label
+          htmlFor="confirm-password"
+          visuallyHidden
+        >
+          {t('registration.form.fields.passwordConfirmation')}
+        </Form.Label>
         <Form.Control
           required
           isInvalid={loginFormik.touched.confirmPassword && !!loginFormik.errors.confirmPassword}
@@ -138,4 +137,6 @@ export default function LoginForm() {
       <Button type="submit" disabled={loginFormik.isSubmitting}>{t('registration.form.buttons.submit')}</Button>
     </Form>
   );
-}
+};
+
+export default SignUpForm;

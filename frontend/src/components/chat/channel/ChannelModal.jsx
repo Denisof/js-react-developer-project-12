@@ -1,14 +1,18 @@
-import {useEffect, useRef, useState} from "react";
-import {useAddChannelMutation, useGetChannelsQuery, useUpdateChannelMutation} from "../../../slices/channelsApi.js";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import {useFormik} from "formik";
+import { useEffect, useRef, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useFormik } from 'formik';
 import Modal from 'react-bootstrap/Modal';
-import createValidationSchema from "./validationSchema.js";
 import { useTranslation } from 'react-i18next';
+import createValidationSchema from './validationSchema.js';
+import { useAddChannelMutation, useGetChannelsQuery, useUpdateChannelMutation } from '../../../slices/channelsApi.js';
 
-
-export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
+const ChannelModal = ({
+  channel,
+  onClose,
+  onSubmit,
+  modalTitle,
+}) => {
   const [show, setShow] = useState(true);
   const channelNameRef = useRef();
   const { t } = useTranslation();
@@ -16,18 +20,13 @@ export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
     addChannel,
     { error: addChannelError, isLoading: isAddingChannel },
   ] = useAddChannelMutation();
-  const {data: channelsData = []} = useGetChannelsQuery();
+  const { data: channelsData = [] } = useGetChannelsQuery();
   const validationSchema = createValidationSchema(channelsData, channel);
   const [
     updateChannel,
     { error: updateChannelError, isLoading: isUpdatingChannel },
   ] = useUpdateChannelMutation();
   const inProgress = isAddingChannel || isUpdatingChannel;
-  const handleClose = () => {
-    setShow(false);
-    channelFormik.resetForm();
-    onClose();
-  }
   const channelFormik = useFormik(
     {
       validationSchema,
@@ -36,14 +35,22 @@ export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
       },
       onSubmit: async (values) => {
         try {
-          const updatedChannel = await (channel ? updateChannel({id: channel.id, name: values.channelName}) :
-            addChannel({ name: values.channelName }));
+          const updatedChannel = await (channel
+            ? updateChannel({ id: channel.id, name: values.channelName })
+            : addChannel({ name: values.channelName })
+          );
           onSubmit(updatedChannel);
         } catch (err) {
-          console.error;
+          console.error(err);
         }
       },
-    });
+    },
+  );
+  const handleClose = () => {
+    setShow(false);
+    channelFormik.resetForm();
+    onClose();
+  };
   const error = addChannelError || updateChannelError || channelFormik.errors.channelName;
   useEffect(() => {
     if (show) {
@@ -59,18 +66,32 @@ export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
       <Modal.Body>
         <Form onSubmit={channelFormik.handleSubmit}>
           <Form.Group>
-            <Form.Label visuallyHidden={true} htmlFor="channelName">{t('chat.channels.form.fields.name')}</Form.Label>
-            <Form.Control ref={channelNameRef} required type="text"
-                          id="channelName" isInvalid={error}
-                          placeholder={t('chat.channels.form.fields.name')}
-                          autoComplete="channelName" name="channelName" onChange={channelFormik.handleChange}
-                          value={channelFormik.values.channelName}/>
+            <Form.Label visuallyHidden htmlFor="channelName">
+              {t('chat.channels.form.fields.name')}
+            </Form.Label>
+            <Form.Control
+              ref={channelNameRef}
+              required
+              type="text"
+              id="channelName"
+              isInvalid={error}
+              placeholder={t('chat.channels.form.fields.name')}
+              autoComplete="channelName"
+              name="channelName"
+              onChange={channelFormik.handleChange}
+              value={channelFormik.values.channelName}
+            />
             <Form.Control.Feedback type="invalid" isInvalid={error}>
               {error}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className={"d-flex justify-content-end mt-1"}>
-            <Button type="button" className={"me-2 btn btn-secondary"} onClick={handleClose} disabled={inProgress}>
+          <Form.Group className="d-flex justify-content-end mt-1">
+            <Button
+              ype="button"
+              className="me-2 btn btn-secondary"
+              onClick={handleClose}
+              disabled={inProgress}
+            >
               {t('form.fields.cancel')}
             </Button>
             <Button type="submit" disabled={inProgress}>{t('form.fields.submit')}</Button>
@@ -79,4 +100,5 @@ export default function ChannelModal({channel, onClose, onSubmit, modalTitle}) {
       </Modal.Body>
     </Modal>
   );
-}
+};
+export default ChannelModal;

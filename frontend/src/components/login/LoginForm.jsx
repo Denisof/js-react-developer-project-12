@@ -1,26 +1,19 @@
-import instance from "../../api/client";
-import React, {useEffect, useRef, useState} from 'react';
-import {useFormik} from 'formik';
+import React, { useEffect, useRef, useState } from 'react';
+import { useFormik } from 'formik';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import routes from '../../api/routes.js';
-import {Navigate, useLocation, useNavigate} from 'react-router-dom';
-import {useAuth} from "../AuthContext.jsx";
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import routes from '../../api/routes.js';
+import { useAuth } from '../AuthContext.jsx';
+import instance from '../../api/client';
 
-
-export default function LoginForm () {
-  const {login, isAuthenticated} = useAuth();
+const LoginForm = () => {
+  const { login } = useAuth();
   const { t } = useTranslation();
-
-  if(isAuthenticated) {
-    return <Navigate to={redirectTo} relace/>;
-  }
-  let {state} = useLocation();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const redirectTo = state ? state.from.pathname : '/';
-
-
   const [authFailed, setAuthFailed] = useState(false);
   const userNameRef = useRef();
   const passwordRef = useRef();
@@ -28,7 +21,7 @@ export default function LoginForm () {
   const loginFormik = useFormik({
     initialValues: {
       username: '',
-      password: ''
+      password: '',
     },
     onSubmit: async (values) => {
       const authUrl = routes.loginPath();
@@ -56,22 +49,45 @@ export default function LoginForm () {
     }
   }, []);
 
-  return <Form onSubmit={loginFormik.handleSubmit}>
-    <Form.Group>
-      <Form.Label htmlFor="username">{t('login.fields.username')}</Form.Label>
-      <Form.Control required isInvalid={authFailed} ref={userNameRef} type="text" id="username"
-                         autoComplete="username" name="username" onChange={loginFormik.handleChange}
-                         value={loginFormik.values.username}/>
-    </Form.Group>
-    <Form.Group>
-      <Form.Label htmlFor="password">{t('login.fields.password')}</Form.Label>
-      <Form.Control required isInvalid={authFailed} ref={passwordRef} type="password" id="password"
-                         autoComplete="current-password" name="password" onChange={loginFormik.handleChange}
-                         value={loginFormik.values.password}/>
-      <Form.Control.Feedback type="invalid" isInvalid={authFailed}>
-        {t('login.login_error')}
-      </Form.Control.Feedback>
-    </Form.Group>
-    <Button type="submit">{t('login.login')}</Button>
-  </Form>;
-}
+  return (
+    <Form onSubmit={loginFormik.handleSubmit}>
+      <Form.Group>
+        <Form.Label htmlFor="username">{t('login.fields.username')}</Form.Label>
+        <Form.Control
+          required
+          isInvalid={authFailed}
+          ref={userNameRef}
+          type="text"
+          id="username"
+          autoComplete="username"
+          name="username"
+          onChange={loginFormik.handleChange}
+          value={loginFormik.values.username}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label htmlFor="password">{t('login.fields.password')}</Form.Label>
+        <Form.Control
+          required
+          isInvalid={authFailed}
+          ref={passwordRef}
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          name="password"
+          onChange={loginFormik.handleChange}
+          value={loginFormik.values.password}
+        />
+        <Form.Control.Feedback
+          type="invalid"
+          isInvalid={authFailed}
+        >
+          {t('login.login_error')}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button type="submit">{t('login.login')}</Button>
+    </Form>
+  );
+};
+
+export default LoginForm;
