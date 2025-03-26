@@ -76,7 +76,7 @@ export default {
             },
             success: {
               channelAdded: "Канал создан",
-              channelRemoved: "Канал удален",
+              channelRemoved: "Канал удалён",
               channelRenamed: "Канал переименован",
             }
           }
