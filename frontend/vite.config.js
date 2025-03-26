@@ -5,32 +5,30 @@ export default defineConfig({
   mode: 'development',
   plugins: [react()],
   build: {
-    minify: false,  // Отключаем минификацию
-    sourcemap: true, // Включаем source maps для удобства отладки
+    minify: false,
+    sourcemap: true,
     rollupOptions: {
       output: {
-        compact: false,  // Отключаем сжатие кода
-        manualChunks: undefined, // Запрещаем разбиение кода на чанки
+        compact: false,
+        manualChunks: undefined,
       },
-      treeshake: false,  // Отключаем tree-shaking (удаление неиспользуемого кода)
+      treeshake: false,
     },
     terserOptions: {
-      compress: false, // Отключаем сжатие
-      mangle: false, // Отключаем сокращение имен переменных
+      compress: false,
+      mangle: false,
       format: {
-        beautify: true, // Оставляем читаемый код
-        comments: true, // Оставляем комментарии
+        beautify: true,
+        comments: true,
       },
     },
   },
   server: {
     port: 5002,
     proxy: {
-      // Проксируем запросы к API
       '/api': {
         target: 'http://localhost:5001',
       },
-      // Проксируем WebSocket соединения
       '/socket.io': {
         target: 'ws://localhost:5001',
         ws: true,
