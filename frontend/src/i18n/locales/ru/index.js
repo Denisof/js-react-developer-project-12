@@ -14,7 +14,7 @@ export default {
           validation: {
             min_length_one: "Не менее {{count}} символ",
             min_length_few: "Не менее {{count}} символа",
-            min_length_many: "Не менее {{count}} символoв",
+            min_length_many: "Не менее {{count}} символов",
             between_length: "От {{min}} до {{max}} символов",
           }
         }
