@@ -58,6 +58,7 @@ export default {
         title: "Hexlet Chat",
         channels: {
           channels: "Каналы",
+          channel_management: "Управление каналом",
           action_rename: "Переименовать",
           action_remove: "Удалить",
           action_add: "Добавить канал",

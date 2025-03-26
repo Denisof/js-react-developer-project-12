@@ -116,6 +116,7 @@ export default function ChannelsList() {
                     size="sm"
                     variant={variant}
                     key={channel.id}
+                    title={<span className="visually-hidden">{t('chat.channels.channel_management')}</span>}
                   >
                     <Dropdown.Item onClick={getRemoveChannelHandler(channel.id)} eventKey="1">{t('chat.channels.action_remove')}</Dropdown.Item>
                     <Dropdown.Item eventKey="2" onClick={getRenameChannelHandler(channel.id)}>{t('chat.channels.action_rename')}</Dropdown.Item>
